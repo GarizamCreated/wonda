@@ -103,6 +103,39 @@ class MessageUpdate(BaseUpdate, Message):
             from_chat_id=self.chat.id, message_id=self.message_id, **params
         )
 
+    async def delete(self, **kwargs) -> bool:
+        params = get_params(locals())
+        return await self.ctx_api.delete_message(
+            message_id=self.message_id, chat_id=self.chat.id, **params
+        )
+    
+    async def edit_text(
+        self,
+        text: str,
+        parse_mode: str | None = None,
+        entities: list[MessageEntity] | None = None,
+        disable_web_page_preview: bool | None = None,
+        disable_notification: bool | None = None,
+        protect_content: bool | None = None,
+        reply_to_message_id: int | None = None,
+        allow_sending_without_reply: bool | None = None,
+        reply_markup: InlineKeyboardMarkup
+        | ReplyKeyboardMarkup
+        | ReplyKeyboardRemove
+        | ForceReply
+        | None = None,
+        **kwargs,
+    ) -> bool:
+
+        if self.is_topic_message and "message_thread_id" not in params:
+            params["message_thread_id"] = self.message_thread_id
+
+
+        params = get_params(locals())
+        return await self.ctx_api.edit_message_text(
+            message_id=self.message_id, 
+            chat_id=self.chat.id, **params
+        )
 
 class CallbackQueryUpdate(BaseUpdate, CallbackQuery):
     async def answer(
