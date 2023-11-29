@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 
 _ = Any
 T = TypeVar("T", bound=BaseUpdate)
-
+FuncT = TypeVar("FuncT")
 
 class ABCView(ABC, Generic[T]):
     matches: str | list[str]
@@ -36,10 +36,11 @@ class ABCView(ABC, Generic[T]):
             isinstance(rule, ABCRule) for rule in rules
         ), "All rules must be subclasses of ABCRule"
 
-        def decorator(func) -> None:
+        def decorator(func: FuncT) -> FuncT:
             self.register_handler(
                 FuncHandler(func, [*self.auto_rules, *rules], blocking=blocking)
             )
+            return func
 
         return decorator
 
