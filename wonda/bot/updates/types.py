@@ -149,7 +149,13 @@ class CallbackQueryUpdate(BaseUpdate, CallbackQuery):
         return await self.ctx_api.answer_callback_query(
             callback_query_id=self.id, **get_params(locals())
         )
+    @property
+    def chat(self):
+        return self.message.chat
 
+    @property
+    def message_id(self):
+        return self.message.message_id
 
 class InlineQueryUpdate(BaseUpdate, InlineQuery):
     async def answer(
