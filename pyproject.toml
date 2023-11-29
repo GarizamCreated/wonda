@@ -1,11 +1,11 @@
 [tool.poetry]
 name = "wonda"
-version = "0.6.7"
+version = "0.7.0"
 description = "Asynchronous feature-rich framework for building Telegram bots"
 authors = []
 license = "MIT"
 readme = "README.md"
-homepage = "https://github.com/wondergram-org/wonda/"
+homepage = "https://github.com/GarizamCreated/wonda/"
 
 [tool.poetry.dependencies]
 python = "^3.10"
